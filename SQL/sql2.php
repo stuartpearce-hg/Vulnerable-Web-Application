@@ -34,9 +34,20 @@
 	} 
 	//echo "Connected successfully";
 	if(isset($_POST["submit"])){
-		$number = $_POST['number'];
-		$query = "SELECT bookname,authorname FROM books WHERE number = $number"; //Int
-		$result = mysqli_query($conn,$query);
+		$number = intval($_POST['number']);
+		$query = "SELECT bookname,authorname FROM books WHERE number=?";
+		if($stmt = mysqli_prepare($conn, $query)){
+		    mysqli_stmt_bind_param($stmt, "i", $number);
+		    mysqli_stmt_execute($stmt);
+		    $result = mysqli_stmt_get_result($stmt);
+		    while ($row = mysqli_fetch_assoc($result)) {
+		        echo "<hr>";
+		        echo $row['bookname']." ----> ".$row['authorname'];    
+		    }
+		    mysqli_stmt_close($stmt);
+		} else {
+		    echo "0 result";
+		}
 
 		if (!$result) { //Check result
 		    $message  = 'Invalid query: ' . mysql_error() . "\n";
