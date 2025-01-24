@@ -5,7 +5,7 @@ def test_command_execution_vulnerability(session):
     """Test if command execution vulnerability exists in CommandExec-1.php"""
     
     # Setup
-    url = "http://localhost/CommandExecution/CommandExec-1.php"
+    url = "http://localhost:9991/CommandExecution/CommandExec-1.php"
     test_string = "test123"
     payload = f"Admin; echo {test_string}"
     
@@ -25,5 +25,5 @@ def test_command_execution_vulnerability(session):
     })
     
     # Should contain system user info
-    assert "root" in response.text.lower() or "www-data" in response.text.lower(), \
+    assert "daemon" in response.text.lower(), \
            "Command execution vulnerability not confirmed - whoami command failed"

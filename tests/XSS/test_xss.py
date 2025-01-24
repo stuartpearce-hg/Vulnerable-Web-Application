@@ -6,7 +6,7 @@ def test_xss_vulnerability(session):
     """Test if XSS vulnerability exists in XSS_level1.php"""
     
     # Setup
-    url = "http://localhost/XSS/XSS_level1.php"
+    url = "http://localhost:9991/XSS/XSS_level1.php"
     xss_payload = "<script>alert('XSS')</script>"
     
     # Execute
